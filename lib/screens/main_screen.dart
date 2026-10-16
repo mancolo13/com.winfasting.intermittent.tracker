@@ -17,8 +17,8 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screens = const [
     Tab1Screen(),
-    Tab3Screen(),
     Tab2Screen(),
+    Tab3Screen(),
     Tab4Screen(),
   ];
 
@@ -32,26 +32,26 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: AppTheme.surfaceColor,
         indicatorColor: AppTheme.primaryColor.withValues(alpha: 0.2),
         destinations: [
-        NavigationDestination(
-          icon: const Icon(Icons.hourglass_top_outlined),
-          selectedIcon: const Icon(Icons.hourglass_full, color: AppTheme.primaryColor),
-          label: 'Fast',
-        ),
-        NavigationDestination(
-          icon: const Icon(Icons.track_changes_outlined),
-          selectedIcon: const Icon(Icons.track_changes, color: AppTheme.primaryColor),
-          label: 'Stages',
-        ),
-        NavigationDestination(
-          icon: const Icon(Icons.water_drop_outlined),
-          selectedIcon: const Icon(Icons.water_drop, color: AppTheme.primaryColor),
-          label: 'Hydrate',
-        ),
-        NavigationDestination(
-          icon: const Icon(Icons.history_outlined),
-          selectedIcon: const Icon(Icons.history, color: AppTheme.primaryColor),
-          label: 'History',
-        ),
+          NavigationDestination(
+            icon: const Icon(Icons.timer_outlined),
+            selectedIcon: const Icon(Icons.timer, color: AppTheme.primaryColor),
+            label: 'Tracker',
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.tune_outlined),
+            selectedIcon: const Icon(Icons.tune, color: AppTheme.primaryColor),
+            label: 'Protocols',
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.water_drop_outlined),
+            selectedIcon: const Icon(Icons.water_drop, color: AppTheme.primaryColor),
+            label: 'Hydration',
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.insights_outlined),
+            selectedIcon: const Icon(Icons.insights, color: AppTheme.primaryColor),
+            label: 'History',
+          ),
         ],
       ),
     );

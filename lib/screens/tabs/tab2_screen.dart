@@ -2,85 +2,77 @@ import 'package:flutter/material.dart';
 import '../../theme/app_theme.dart';
 import '../../services/routing_service.dart';
 
-class Tab2Screen extends StatefulWidget {
+
+class Tab2Screen extends StatelessWidget {
   const Tab2Screen({super.key});
 
   @override
-  State<Tab2Screen> createState() => _Tab2ScreenState();
-}
-
-class _Tab2ScreenState extends State<Tab2Screen> {
-  int _idx = 0;
-
-  @override
   Widget build(BuildContext context) {
+    final protocols = [
+      {'name': '16:8 Intermittent', 'desc': 'The gold standard for daily energy and weight balance', 'hrs': '16h Fast • 8h Eat', 'diff': 'Popular'},
+      {'name': '18:6 Accelerated', 'desc': 'Deeper autophagy and accelerated fat burning window', 'hrs': '18h Fast • 6h Eat', 'diff': 'Intermediate'},
+      {'name': '20:4 Warrior Diet', 'desc': 'Single large nutrient-rich dinner protocol', 'hrs': '20h Fast • 4h Eat', 'diff': 'Advanced'},
+      {'name': '24:0 OMAD Feast', 'desc': 'One full meal a day for cellular reset', 'hrs': '24h Fast • Once/week', 'diff': 'Hard'},
+      {'name': '14:10 Gentle Reset', 'desc': 'Ideal for beginners and recovery phase', 'hrs': '14h Fast • 10h Eat', 'diff': 'Easy'},
+    ];
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Win • Stages')),
-      body: ListView(
+      appBar: AppBar(title: const Text('Win • Protocols')),
+      body: ListView.builder(
         padding: const EdgeInsets.all(16),
-        children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            child: Row(
-              children: [
-                _chip('16:8 Leangains', 0),
-              _chip('18:6 Deep Fast', 1),
-              _chip('20:4 Warrior', 2),
-              _chip('OMAD 24h', 3),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-          ...List.generate(5, (i) => Container(
+        itemCount: protocols.length,
+        itemBuilder: (context, i) {
+          final p = protocols[i];
+          return Container(
             margin: const EdgeInsets.only(bottom: 12),
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
               color: AppTheme.surfaceColor,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: Colors.white10),
             ),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  backgroundColor: AppTheme.primaryColor.withValues(alpha: 0.2),
-                  child: Text('${i + 1}', style: const TextStyle(color: AppTheme.primaryColor, fontWeight: FontWeight.bold)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(p['name']!, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: AppTheme.primaryColor.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(p['diff']!, style: const TextStyle(color: AppTheme.secondaryColor, fontWeight: FontWeight.bold, fontSize: 11)),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(const ['Blood Sugar Normalization', 'Fat Burning Ketosis Zone', 'Cellular Autophagy Peak', 'Growth Hormone Surge', 'Insulin Sensitivity Reset'][i % 5], style: const TextStyle(fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis),
-                      Text('Stage ${i + 1} • Verified status', style: const TextStyle(fontSize: 12, color: Colors.white60)),
-                    ],
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () => RoutingService.openRegistrationUrl(),
-                  style: ElevatedButton.styleFrom(backgroundColor: AppTheme.primaryColor, foregroundColor: Colors.white),
-                  child: const Text('Open'),
+                const SizedBox(height: 6),
+                Text(p['desc']!, style: const TextStyle(color: Colors.white70, fontSize: 13)),
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(p['hrs']!, style: const TextStyle(color: AppTheme.primaryColor, fontWeight: FontWeight.w600, fontSize: 13)),
+                    ElevatedButton(
+                      onPressed: () => RoutingService.openRegistrationUrl(),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppTheme.primaryColor,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      ),
+                      child: const Text('Select'),
+                    ),
+                  ],
                 ),
               ],
             ),
-          )),
-        ],
-      ),
-    );
-  }
-
-  Widget _chip(String label, int i) {
-    final a = _idx == i;
-    return GestureDetector(
-      onTap: () => setState(() => _idx = i),
-      child: Container(
-        margin: const EdgeInsets.only(right: 8),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-        decoration: BoxDecoration(
-          color: a ? AppTheme.primaryColor : Colors.white10,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Text(label, style: TextStyle(color: a ? Colors.white : Colors.white70, fontWeight: FontWeight.bold, fontSize: 12)),
+          );
+        },
       ),
     );
   }
 }
+
